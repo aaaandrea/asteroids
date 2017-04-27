@@ -1,6 +1,3 @@
-# Goals
-This project is meant to work through Webpack installation, testing JavaScript code using window.x = x, and render information from JavaScript objects on a page. Finally, it will use Canvas.js to draw objects.
-
 ## Webpack
 ### Background
 Without Webpack, we could write multiple files into the head HTML documents such that the browser could execute each one in order like so:
