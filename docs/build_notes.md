@@ -18,8 +18,17 @@ The order would be key for each of the dependencies need to be loaded before the
 
 In Node each file has its own global namespace, however, in the browser there is a single global namespace, called `window`, which is shared across all JavaScript files.
 
-module.exports and require break code into modules. Seeing as how web browsers do not have this functionality, we do it for them.
-
 ### Module Bundlers
+'Bundling' your code breaks your code into pre-digested bits built for the browser without having to list all your files out in order. This is achieved by running though all source files and bundling them into a single file to be referenced in a single script tag. In order for this work each file requires dependencies explicitly at the tope, and then exports the object the file is creating.
 
-module.exports and require break code into modules. Seeing as how web browsers do not have this functionality, we do it for them.
+```
+class ExampleCode {
+  code() {
+    // ...
+  }
+}
+
+module.exports = ExampleCode;
+```
+
+`module.exports` and `require` break code into these digestible modules, which means we do not need to worry about the order because the bundler will load the files declared in `require` first so the dependents are loaded last.
