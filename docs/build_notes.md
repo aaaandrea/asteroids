@@ -29,3 +29,13 @@ module.exports = ExampleCode;
 ```
 
 `module.exports` and `require` break code into these digestible modules, which means we do not need to worry about the order because the bundler will load the files declared in `require` first so the dependents are loaded last.
+
+### Enter npm
+1. Run `npm install -g webpack` to install webpack.
+2. Navigate to app directory and run `webpack app.js bundle.js`
+3. In your head HTML file add the following script tag
+  ```
+  <body>
+    <script src="dist/bundle.js"> </script>
+  </body>
+  ```
