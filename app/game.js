@@ -5,11 +5,15 @@ import Asteroid from './asteroid';
 // key methods include step() - which calls move() on the collections.
   // checkCollisions() checks colliding objects,
   // and draw() which draws the game.
-const CONSTANTS = {
-  DIM_X: 3,
-  DIM_Y: 3,
-  NUM_ASTEROIDS: 45
-};
+
+  Game.DIM_X = 1000;
+  Game.DIM_Y = 600;
+  Game.NUM_ASTEROIDS = 10;
+
+  Game.BG_COLOR = '#000000';
+  Game.FPS = 33;
+
+
 
 
 class Game {
@@ -20,17 +24,26 @@ class Game {
   }
 
   addAsteroids() {
-    for (let i = 0; i < CONSTANTS.NUM_ASTEROIDS; i++) {
+    for (let i = 0; i < Game.NUM_ASTEROIDS; i++) {
       let asteroid = new Asteroid({ game: this });
       this.asteroids.push(asteroid);
     }
   }
 
   draw(ctx) {
+    ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
+    ctx.fillStyle = Game.BG_COLOR;
+    ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
+
+    this.asteroids.forEach((el) => {
+      el.draw(ctx);
+    });
 
   }
 
-  moveObjects() {
-
+  moveObjects(delta) {
+    this.asteroids.forEach((el) => {
+      el.move(delta);
+    });
   }
 }
