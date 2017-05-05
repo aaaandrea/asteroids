@@ -45,4 +45,4 @@ GameView.MOVES = {
   "d": [1, 0],
 };
 
-module.exports = GameView;
+export default GameView;

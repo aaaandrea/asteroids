@@ -54,4 +54,5 @@ class MovingObject {
     this.game.remove(this);
   }
 }
-module.exports = MovingObject;
+
+export default MovingObject;

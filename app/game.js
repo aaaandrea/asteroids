@@ -6,15 +6,6 @@ import Asteroid from './asteroid';
   // checkCollisions() checks colliding objects,
   // and draw() which draws the game.
 
-  Game.DIM_X = 1000;
-  Game.DIM_Y = 600;
-  Game.NUM_ASTEROIDS = 10;
-
-  Game.BG_COLOR = '#000000';
-  Game.FPS = 33;
-
-
-
 
 class Game {
   constructor() {
@@ -47,3 +38,13 @@ class Game {
     });
   }
 }
+
+Game.DIM_X = 1000;
+Game.DIM_Y = 600;
+Game.NUM_ASTEROIDS = 10;
+
+Game.BG_COLOR = '#000000';
+Game.FPS = 33;
+
+
+export default Game;

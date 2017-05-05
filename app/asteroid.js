@@ -3,7 +3,7 @@ import Util from './util';
 // spacerock which inherits from Moving Objects
 
 const DEFAULTS = {
-  COLOR: 'blue',
+  COLOR: '#7B97FF',
   RADIUS: 2,
   SPEED: 2
 };
@@ -20,4 +20,4 @@ class Asteroid extends MovingObject {
 
 }
 
-module.exports = Asteroid;
+export default Asteroid;
