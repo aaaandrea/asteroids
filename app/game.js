@@ -37,6 +37,13 @@ class Game {
       el.move(delta);
     });
   }
+
+  randomPosition() {
+    return [
+      Game.DIM_X * Math.random(),
+      Game.DIM_Y * Math.random()
+    ];
+  }
 }
 
 Game.DIM_X = 1000;
