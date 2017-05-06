@@ -1,6 +1,5 @@
 // kills spacerocks; also inherits form moving_objects
-
-const MovingObject = require("./moving_object");
+import MovingObject from './moving_object';
 
 class Bullet extends MovingObject {
   constructor(options) {

@@ -97,7 +97,7 @@
     add(object) {
       if (object instanceof __WEBPACK_IMPORTED_MODULE_0__asteroid__["a" /* default */]) {
         this.asteroids.push(object);
-      } else if (object instanceof __WEBPACK_IMPORTED_MODULE_1__bullet__["default"]) {
+      } else if (object instanceof __WEBPACK_IMPORTED_MODULE_1__bullet__["a" /* default */]) {
         this.bullets.push(object);
       } else if (object instanceof __WEBPACK_IMPORTED_MODULE_2__ship__["a" /* default */]) {
         this.ships.push(object);
@@ -171,7 +171,7 @@
     }
 
     remove(object) {
-      if (object instanceof __WEBPACK_IMPORTED_MODULE_1__bullet__["default"]) {
+      if (object instanceof __WEBPACK_IMPORTED_MODULE_1__bullet__["a" /* default */]) {
         this.bullets.splice(this.bullets.indexOf(object), 1);
       } else if (object instanceof __WEBPACK_IMPORTED_MODULE_0__asteroid__["a" /* default */]) {
         this.asteroids.splice(this.asteroids.indexOf(object), 1);
@@ -189,7 +189,7 @@
 
     wrap(pos) {
       return [
-        __WEBPACK_IMPORTED_MODULE_3__util__["default"].wrap(pos[0], Game.DIM_X), __WEBPACK_IMPORTED_MODULE_3__util__["default"].wrap(pos[1], Game.DIM_Y)
+        __WEBPACK_IMPORTED_MODULE_3__util__["a" /* default */].wrap(pos[0], Game.DIM_X), __WEBPACK_IMPORTED_MODULE_3__util__["a" /* default */].wrap(pos[1], Game.DIM_Y)
       ];
     }
   }
@@ -282,12 +282,12 @@ const DEFAULTS = {
   SPEED: 2
 };
 
-class Asteroid extends __WEBPACK_IMPORTED_MODULE_0__moving_object__["default"] {
+class Asteroid extends __WEBPACK_IMPORTED_MODULE_0__moving_object__["a" /* default */] {
     constructor(options = {}) {
       options.color = DEFAULTS.COLOR;
       options.pos = options.pos || options.game.randomPosition();
       options.radius = DEFAULTS.RADIUS;
-      options.vel = options.vel || __WEBPACK_IMPORTED_MODULE_1__util__["default"].randomVec(DEFAULTS.SPEED);
+      options.vel = options.vel || __WEBPACK_IMPORTED_MODULE_1__util__["a" /* default */].randomVec(DEFAULTS.SPEED);
 			super(options);
     }
 
@@ -295,7 +295,7 @@ class Asteroid extends __WEBPACK_IMPORTED_MODULE_0__moving_object__["default"] {
       if (otherObject instanceof __WEBPACK_IMPORTED_MODULE_2__ship__["a" /* default */]) {
         otherObject.relocate();
             return true;
-      } else if (otherObject instanceof __WEBPACK_IMPORTED_MODULE_3__bullet__["default"]) {
+      } else if (otherObject instanceof __WEBPACK_IMPORTED_MODULE_3__bullet__["a" /* default */]) {
             this.remove();
             otherObject.remove();
             return true;
@@ -334,7 +334,6 @@ document.addEventListener("DOMContentLoaded", function(){
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util__ = __webpack_require__(5);
 // Base class for anything that moves
 // Key methods are move(), draw(ctx), isCollideWith(otherMovingObject)
@@ -370,7 +369,7 @@ class MovingObject {
   }
 
   isCollidedWith(otherObject) {
-    const centerDist = __WEBPACK_IMPORTED_MODULE_0__util__["default"].dist(this.pos, otherObject.pos);
+    const centerDist = __WEBPACK_IMPORTED_MODULE_0__util__["a" /* default */].dist(this.pos, otherObject.pos);
     return centerDist < (this.radius + otherObject.radius);
   }
 
@@ -401,7 +400,7 @@ class MovingObject {
 
 const NORMAL_FRAME_TIME_DELTA = 1000/60;
 
-/* harmony default export */ __webpack_exports__["default"] = (MovingObject);
+/* harmony default export */ __webpack_exports__["a"] = (MovingObject);
 
 
 /***/ }),
@@ -409,7 +408,6 @@ const NORMAL_FRAME_TIME_DELTA = 1000/60;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 // Utility code, including vector math
 const Util = {
 
@@ -450,7 +448,7 @@ const Util = {
   }
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Util);
+/* harmony default export */ __webpack_exports__["a"] = (Util);
 
 
 /***/ }),
@@ -459,10 +457,14 @@ const Util = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__moving_object__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__bullet__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util__ = __webpack_require__(5);
 // Player class; inherits from moving object
-const MovingObject = __webpack_require__(4);
-const Bullet = __webpack_require__(8);
-const Util = __webpack_require__(5);
+
+
+
+
 
 const randomColor = () => {
   const hexDigits = "0123456789ABCDEF";
@@ -475,7 +477,7 @@ const randomColor = () => {
   return color;
 };
 
-class Ship extends MovingObject {
+class Ship extends __WEBPACK_IMPORTED_MODULE_0__moving_object__["a" /* default */] {
   constructor(options) {
     options.radius = Ship.RADIUS;
     options.vel = options.vel || [0, 0];
@@ -484,23 +486,23 @@ class Ship extends MovingObject {
   }
 
   fireBullet() {
-    const norm = Util.norm(this.vel);
+    const norm = __WEBPACK_IMPORTED_MODULE_2__util__["a" /* default */].norm(this.vel);
 
     if (norm == 0) {
       // Can't fire unless moving.
       return;
     }
 
-    const relVel = Util.scale(
-      Util.dir(this.vel),
-      Bullet.SPEED
+    const relVel = __WEBPACK_IMPORTED_MODULE_2__util__["a" /* default */].scale(
+      __WEBPACK_IMPORTED_MODULE_2__util__["a" /* default */].dir(this.vel),
+      __WEBPACK_IMPORTED_MODULE_1__bullet__["a" /* default */].SPEED
     );
 
     const bulletVel = [
       relVel[0] + this.vel[0], relVel[1] + this.vel[1]
     ];
 
-    const bullet = new Bullet({
+    const bullet = new __WEBPACK_IMPORTED_MODULE_1__bullet__["a" /* default */]({
       pos: this.pos,
       vel: bulletVel,
       color: this.color,
@@ -531,12 +533,11 @@ Ship.RADIUS = 15;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__moving_object__ = __webpack_require__(4);
 // kills spacerocks; also inherits form moving_objects
 
-const MovingObject = __webpack_require__(4);
 
-class Bullet extends MovingObject {
+class Bullet extends __WEBPACK_IMPORTED_MODULE_0__moving_object__["a" /* default */] {
   constructor(options) {
     options.radius = Bullet.RADIUS;
     super(options);
@@ -547,7 +548,7 @@ class Bullet extends MovingObject {
 Bullet.RADIUS = 2;
 Bullet.SPEED = 15;
 
-/* harmony default export */ __webpack_exports__["default"] = (Bullet);
+/* harmony default export */ __webpack_exports__["a"] = (Bullet);
 
 
 /***/ })

@@ -1,7 +1,8 @@
 // Player class; inherits from moving object
-const MovingObject = require("./moving_object");
-const Bullet = require("./bullet");
-const Util = require("./util");
+import MovingObject from './moving_object';
+import Bullet from './bullet';
+import Util from './util';
+
 
 const randomColor = () => {
   const hexDigits = "0123456789ABCDEF";
