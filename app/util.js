@@ -38,4 +38,4 @@ const Util = {
   }
 };
 
-module.exports = Util;
+export default Util;
