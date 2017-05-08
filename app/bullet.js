@@ -9,7 +9,7 @@ class Bullet extends MovingObject {
   }
 }
 
-Bullet.RADIUS = 2;
+Bullet.RADIUS = 3;
 Bullet.SPEED = 15;
 
 export default Bullet;

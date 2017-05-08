@@ -6,7 +6,7 @@ import Bullet from './bullet';
 
 const DEFAULTS = {
   COLOR: '#466AFB',
-  RADIUS: 7,
+  RADIUS: 8,
   SPEED: 1
 };
 

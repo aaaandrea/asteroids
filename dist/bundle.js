@@ -131,7 +131,7 @@ class Bullet extends __WEBPACK_IMPORTED_MODULE_0__moving_object__["a" /* default
   }
 }
 
-Bullet.RADIUS = 2;
+Bullet.RADIUS = 3;
 Bullet.SPEED = 15;
 
 /* harmony default export */ __webpack_exports__["a"] = (Bullet);
@@ -303,7 +303,7 @@ class Ship extends __WEBPACK_IMPORTED_MODULE_0__moving_object__["a" /* default *
   }
 }
 
-Ship.RADIUS = 8;
+Ship.RADIUS = 10;
 
 /* harmony default export */ __webpack_exports__["a"] = (Ship);
 
@@ -522,7 +522,7 @@ GameView.MOVES = {
 
 const DEFAULTS = {
   COLOR: '#466AFB',
-  RADIUS: 7,
+  RADIUS: 8,
   SPEED: 1
 };
 
