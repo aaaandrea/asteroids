@@ -1,0 +1,8 @@
+#canvas {
+  /*position: absolute;*/
+  justify-content: center;
+  align-items: center;
+  margin: 5%;
+  background: #22144C;
+  border: gray 2px solid
+}

@@ -118,8 +118,8 @@ import Util from './util';
   }
 
   Game.BG_COLOR = "#DFE6FF";
-  Game.DIM_X = 1000;
-  Game.DIM_Y = 600;
+  Game.DIM_X = 400;
+  Game.DIM_Y = 400;
   Game.FPS = 32;
   Game.NUM_ASTEROIDS = 10;
 
