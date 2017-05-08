@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -71,10 +71,231 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__asteroid__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__bullet__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ship__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__util__ = __webpack_require__(5);
+// Utility code, including vector math
+const Util = {
+
+  dir (vec) {
+    const norm = Util.norm(vec);
+    return Util.scale(vec, 1 / norm);
+  },
+
+  dist (pos1, pos2) {
+    return Math.sqrt(
+      Math.pow(pos1[0] - pos2[0], 2) + Math.pow(pos1[1] - pos2[1], 2)
+    );
+  },
+
+  norm (vec) {
+    return Util.dist([0, 0], vec);
+  },
+
+  randomVec (length) {
+    // produce a random vector with the legnth
+    const deg = 2 * Math.PI * Math.random();
+    return Util.scale([Math.sin(deg), Math.cos(deg)], length);
+  },
+
+   scale (vec, m) {
+     // scale the legth of the vector by the amount m.
+     return [vec[0] * m, vec[1] * m];
+   },
+
+  wrap (coord, max) {
+    if (coord < 0) {
+      return max - (coord % max);
+    } else if (coord > max) {
+      return coord % max;
+    } else {
+      return coord;
+    }
+  }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Util);
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__moving_object__ = __webpack_require__(2);
+// kills spacerocks; also inherits form moving_objects
+
+
+class Bullet extends __WEBPACK_IMPORTED_MODULE_0__moving_object__["a" /* default */] {
+  constructor(options) {
+    options.radius = Bullet.RADIUS;
+    super(options);
+    this.isWrappable = false;
+  }
+}
+
+Bullet.RADIUS = 2;
+Bullet.SPEED = 15;
+
+/* harmony default export */ __webpack_exports__["a"] = (Bullet);
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util__ = __webpack_require__(0);
+// Base class for anything that moves
+// Key methods are move(), draw(ctx), isCollideWith(otherMovingObject)
+
+
+class MovingObject {
+  constructor(options) {
+    this.pos = options.pos;
+    this.vel = options.vel;
+    this.radius = options.radius;
+    this.color = options.color;
+    this.game = options.game;
+    this.isWrappable = true;
+  }
+
+  collideWith(otherObject) {
+    // default do nothing
+  }
+
+  draw(ctx) {
+    // method of the Canvas 2D API adds an arc to the path which is
+    // centered at (x, y) position with radius r starting at startAngle
+    // and ending at endAngle going in the given direction by anticlockwise
+    // (defaulting to clockwise).
+    // ctx.arc(x, y, radius, startAngle, endAngle, anticlockwise);
+    ctx.fillStyle = this.color;
+
+    ctx.beginPath();
+    ctx.arc(
+      this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI, true
+    );
+    ctx.fill();
+  }
+
+  isCollidedWith(otherObject) {
+    const centerDist = __WEBPACK_IMPORTED_MODULE_0__util__["a" /* default */].dist(this.pos, otherObject.pos);
+    return centerDist < (this.radius + otherObject.radius);
+  }
+
+  move(timeDelta) {
+    // Increment the pos by the vel.
+    // Calculate the timeDelta (milliseconds since last move)
+    // Velocity of the object is how far it should move in 1/60th of a second
+
+    const velocityScale = timeDelta / NORMAL_FRAME_TIME_DELTA,
+        offsetX = this.vel[0] * velocityScale,
+        offsetY = this.vel[1] * velocityScale;
+
+    this.pos = [this.pos[0] + offsetX, this.pos[1] + offsetY];
+
+    if (this.game.isOutOfBounds(this.pos)) {
+      if (this.isWrappable) {
+        this.pos = this.game.wrap(this.pos);
+      } else {
+        this.remove();
+      }
+    }
+  }
+
+  remove() {
+    this.game.remove(this);
+  }
+}
+
+const NORMAL_FRAME_TIME_DELTA = 1000/60;
+
+/* harmony default export */ __webpack_exports__["a"] = (MovingObject);
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__moving_object__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__bullet__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util__ = __webpack_require__(0);
+// Player class; inherits from moving object
+
+
+
+
+
+const randomColor = () => {
+  const hexDigits = "0123456789ABCDEF";
+
+  let color = "#";
+  for (let i = 0; i < 3; i ++) {
+    color += hexDigits[Math.floor((Math.random() * 16))];
+  }
+
+  return color;
+};
+
+class Ship extends __WEBPACK_IMPORTED_MODULE_0__moving_object__["a" /* default */] {
+  constructor(options) {
+    options.radius = Ship.RADIUS;
+    options.vel = options.vel || [0, 0];
+    options.color = options.color || randomColor();
+    super(options);
+  }
+
+  fireBullet() {
+    const norm = __WEBPACK_IMPORTED_MODULE_2__util__["a" /* default */].norm(this.vel);
+
+    if (norm == 0) {
+      // Can't fire unless moving.
+      return;
+    }
+
+    const relVel = __WEBPACK_IMPORTED_MODULE_2__util__["a" /* default */].scale(
+      __WEBPACK_IMPORTED_MODULE_2__util__["a" /* default */].dir(this.vel),
+      __WEBPACK_IMPORTED_MODULE_1__bullet__["a" /* default */].SPEED
+    );
+
+    const bulletVel = [
+      relVel[0] + this.vel[0], relVel[1] + this.vel[1]
+    ];
+
+    const bullet = new __WEBPACK_IMPORTED_MODULE_1__bullet__["a" /* default */]({
+      pos: this.pos,
+      vel: bulletVel,
+      color: this.color,
+      game: this.game
+    });
+
+    this.game.add(bullet);
+  }
+
+  power(impulse) {
+    this.vel[0] += impulse[0];
+    this.vel[1] += impulse[1];
+  }
+
+  relocate() {
+    this.pos = this.game.randomPosition();
+    this.vel = [0, 0];
+  }
+}
+
+Ship.RADIUS = 15;
+
+/* harmony default export */ __webpack_exports__["a"] = (Ship);
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__asteroid__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__bullet__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ship__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__util__ = __webpack_require__(0);
 
 
 
@@ -205,7 +426,7 @@
 
 
 /***/ }),
-/* 1 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -262,14 +483,14 @@ GameView.MOVES = {
 
 
 /***/ }),
-/* 2 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__moving_object__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ship__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__bullet__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__moving_object__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ship__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__bullet__ = __webpack_require__(1);
 
 
 
@@ -307,13 +528,13 @@ class Asteroid extends __WEBPACK_IMPORTED_MODULE_0__moving_object__["a" /* defau
 
 
 /***/ }),
-/* 3 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__game_view__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__game_view__ = __webpack_require__(5);
 
 
 
@@ -327,228 +548,6 @@ document.addEventListener("DOMContentLoaded", function(){
   const game = new __WEBPACK_IMPORTED_MODULE_0__game__["a" /* default */]();
   new __WEBPACK_IMPORTED_MODULE_1__game_view__["a" /* default */](game, ctx).start();
 });
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util__ = __webpack_require__(5);
-// Base class for anything that moves
-// Key methods are move(), draw(ctx), isCollideWith(otherMovingObject)
-
-
-class MovingObject {
-  constructor(options) {
-    this.pos = options.pos;
-    this.vel = options.vel;
-    this.radius = options.radius;
-    this.color = options.color;
-    this.game = options.game;
-    this.isWrappable = true;
-  }
-
-  collideWith(otherObject) {
-    // default do nothing
-  }
-
-  draw(ctx) {
-    // method of the Canvas 2D API adds an arc to the path which is
-    // centered at (x, y) position with radius r starting at startAngle
-    // and ending at endAngle going in the given direction by anticlockwise
-    // (defaulting to clockwise).
-    // ctx.arc(x, y, radius, startAngle, endAngle, anticlockwise);
-    ctx.fillStyle = this.color;
-
-    ctx.beginPath();
-    ctx.arc(
-      this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI, true
-    );
-    ctx.fill();
-  }
-
-  isCollidedWith(otherObject) {
-    const centerDist = __WEBPACK_IMPORTED_MODULE_0__util__["a" /* default */].dist(this.pos, otherObject.pos);
-    return centerDist < (this.radius + otherObject.radius);
-  }
-
-  move(timeDelta) {
-    // Increment the pos by the vel.
-    // Calculate the timeDelta (milliseconds since last move)
-    // Velocity of the object is how far it should move in 1/60th of a second
-
-    const velocityScale = timeDelta / NORMAL_FRAME_TIME_DELTA,
-        offsetX = this.vel[0] * velocityScale,
-        offsetY = this.vel[1] * velocityScale;
-
-    this.pos = [this.pos[0] + offsetX, this.pos[1] + offsetY];
-
-    if (this.game.isOutOfBounds(this.pos)) {
-      if (this.isWrappable) {
-        this.pos = this.game.wrap(this.pos);
-      } else {
-        this.remove();
-      }
-    }
-  }
-
-  remove() {
-    this.game.remove(this);
-  }
-}
-
-const NORMAL_FRAME_TIME_DELTA = 1000/60;
-
-/* harmony default export */ __webpack_exports__["a"] = (MovingObject);
-
-
-/***/ }),
-/* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// Utility code, including vector math
-const Util = {
-
-  dir (vec) {
-    const norm = Util.norm(vec);
-    return Util.scale(vec, 1 / norm);
-  },
-
-  dist (pos1, pos2) {
-    return Math.sqrt(
-      Math.pow(pos1[0] - pos2[0], 2) + Math.pow(pos1[1] - pos2[1], 2)
-    );
-  },
-
-  norm (vec) {
-    return Util.dist([0, 0], vec);
-  },
-
-  randomVec (length) {
-    // produce a random vector with the legnth
-    const deg = 2 * Math.PI * Math.random();
-    return Util.scale([Math.sin(deg), Math.cos(deg)], length);
-  },
-
-   scale (vec, m) {
-     // scale the legth of the vector by the amount m.
-     return [vec[0] * m, vec[1] * m];
-   },
-
-  wrap (coord, max) {
-    if (coord < 0) {
-      return max - (coord % max);
-    } else if (coord > max) {
-      return coord % max;
-    } else {
-      return coord;
-    }
-  }
-};
-
-/* harmony default export */ __webpack_exports__["a"] = (Util);
-
-
-/***/ }),
-/* 6 */,
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__moving_object__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__bullet__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util__ = __webpack_require__(5);
-// Player class; inherits from moving object
-
-
-
-
-
-const randomColor = () => {
-  const hexDigits = "0123456789ABCDEF";
-
-  let color = "#";
-  for (let i = 0; i < 3; i ++) {
-    color += hexDigits[Math.floor((Math.random() * 16))];
-  }
-
-  return color;
-};
-
-class Ship extends __WEBPACK_IMPORTED_MODULE_0__moving_object__["a" /* default */] {
-  constructor(options) {
-    options.radius = Ship.RADIUS;
-    options.vel = options.vel || [0, 0];
-    options.color = options.color || randomColor();
-    super(options);
-  }
-
-  fireBullet() {
-    const norm = __WEBPACK_IMPORTED_MODULE_2__util__["a" /* default */].norm(this.vel);
-
-    if (norm == 0) {
-      // Can't fire unless moving.
-      return;
-    }
-
-    const relVel = __WEBPACK_IMPORTED_MODULE_2__util__["a" /* default */].scale(
-      __WEBPACK_IMPORTED_MODULE_2__util__["a" /* default */].dir(this.vel),
-      __WEBPACK_IMPORTED_MODULE_1__bullet__["a" /* default */].SPEED
-    );
-
-    const bulletVel = [
-      relVel[0] + this.vel[0], relVel[1] + this.vel[1]
-    ];
-
-    const bullet = new __WEBPACK_IMPORTED_MODULE_1__bullet__["a" /* default */]({
-      pos: this.pos,
-      vel: bulletVel,
-      color: this.color,
-      game: this.game
-    });
-
-    this.game.add(bullet);
-  }
-
-  power(impulse) {
-    this.vel[0] += impulse[0];
-    this.vel[1] += impulse[1];
-  }
-
-  relocate() {
-    this.pos = this.game.randomPosition();
-    this.vel = [0, 0];
-  }
-}
-
-Ship.RADIUS = 15;
-
-/* harmony default export */ __webpack_exports__["a"] = (Ship);
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__moving_object__ = __webpack_require__(4);
-// kills spacerocks; also inherits form moving_objects
-
-
-class Bullet extends __WEBPACK_IMPORTED_MODULE_0__moving_object__["a" /* default */] {
-  constructor(options) {
-    options.radius = Bullet.RADIUS;
-    super(options);
-    this.isWrappable = false;
-  }
-}
-
-Bullet.RADIUS = 2;
-Bullet.SPEED = 15;
-
-/* harmony default export */ __webpack_exports__["a"] = (Bullet);
 
 
 /***/ })
