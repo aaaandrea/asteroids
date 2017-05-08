@@ -117,7 +117,7 @@ import Util from './util';
     }
   }
 
-  Game.BG_COLOR = "#000000";
+  Game.BG_COLOR = "#DFE6FF";
   Game.DIM_X = 1000;
   Game.DIM_Y = 600;
   Game.FPS = 32;

@@ -61,6 +61,6 @@ class Ship extends MovingObject {
   }
 }
 
-Ship.RADIUS = 15;
+Ship.RADIUS = 8;
 
 export default Ship;

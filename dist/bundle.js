@@ -282,7 +282,7 @@ class Ship extends __WEBPACK_IMPORTED_MODULE_0__moving_object__["a" /* default *
   }
 }
 
-Ship.RADIUS = 15;
+Ship.RADIUS = 8;
 
 /* harmony default export */ __webpack_exports__["a"] = (Ship);
 
@@ -415,7 +415,7 @@ Ship.RADIUS = 15;
     }
   }
 
-  Game.BG_COLOR = "#000000";
+  Game.BG_COLOR = "#DFE6FF";
   Game.DIM_X = 1000;
   Game.DIM_Y = 600;
   Game.FPS = 32;
@@ -499,8 +499,8 @@ GameView.MOVES = {
 
 const DEFAULTS = {
   COLOR: '#7B97FF',
-  RADIUS: 2,
-  SPEED: 2
+  RADIUS: 7,
+  SPEED: 1
 };
 
 class Asteroid extends __WEBPACK_IMPORTED_MODULE_0__moving_object__["a" /* default */] {

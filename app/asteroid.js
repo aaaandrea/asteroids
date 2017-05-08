@@ -6,8 +6,8 @@ import Bullet from './bullet';
 
 const DEFAULTS = {
   COLOR: '#7B97FF',
-  RADIUS: 2,
-  SPEED: 2
+  RADIUS: 7,
+  SPEED: 1
 };
 
 class Asteroid extends MovingObject {
