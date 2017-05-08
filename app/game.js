@@ -119,7 +119,7 @@ import Util from './util';
 
 
 
-  Game.BG_COLOR = "#F8F9FF";
+  Game.BG_COLOR = "#DFE6FF";
   Game.DIM_X = window.innerWidth - 100;
   Game.DIM_Y = window.innerHeight - 100;
   Game.FPS = 32;

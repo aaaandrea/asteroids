@@ -245,27 +245,24 @@ class Ship extends __WEBPACK_IMPORTED_MODULE_0__moving_object__["a" /* default *
     options.radius = Ship.RADIUS;
     options.vel = options.vel || [0, 0];
     options.color = options.color || randomColor();
+    // options.theta = 75;
     super(options);
   }
 
-  // draw(ctx) {
-    // method of the Canvas 2D API adds an arc to the path which is
-    // centered at (x, y) position with radius r starting at startAngle
-    // and ending at endAngle going in the given direction by anticlockwise
-    // (defaulting to clockwise).
+  draw(ctx) {
     // ctx.arc(x, y, radius, startAngle, endAngle, anticlockwise);
-    // ctx.fillStyle = this.color;
+    ctx.fillStyle = this.color;
 
-    // ctx.beginPath();
-    // ctx.arc(
-    //   this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI, true
-    // );
-    //
-    // ctx.moveTo(75, 50);
-    // ctx.lineTo(100, 75);
-    // ctx.lineTo(100, 25);
-    // ctx.fill();
-  // }
+    ctx.beginPath();
+    ctx.arc(
+      this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI, false
+    );
+    // let theta = 75;
+    // ctx.moveTo(this.pos[0] + 15 * Math.sinh(-(90 + theta)), this.pos[1] + 15 * Math.cosh((90 + theta)));
+    // ctx.lineTo(this.pos[0]+ 15 * Math.sinh(-(30+270+ theta)), this.pos[1] + 15 * Math.cosh(-(30+270+theta)));
+    // ctx.lineTo(this.pos[0] + 15 * Math.sinh(-(-30 + 270+ theta)), this.pos[1] + 15 * Math.cosh(-(-30+270+theta)));
+    ctx.fill();
+  }
 
 
   fireBullet() {
@@ -441,7 +438,7 @@ Ship.RADIUS = 8;
 
 
 
-  Game.BG_COLOR = "#F8F9FF";
+  Game.BG_COLOR = "#DFE6FF";
   Game.DIM_X = window.innerWidth - 100;
   Game.DIM_Y = window.innerHeight - 100;
   Game.FPS = 32;
