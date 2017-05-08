@@ -161,6 +161,10 @@ class MovingObject {
     // default do nothing
   }
 
+  // draw(ctx) {
+  //
+  // }
+
   draw(ctx) {
     // method of the Canvas 2D API adds an arc to the path which is
     // centered at (x, y) position with radius r starting at startAngle
@@ -243,6 +247,26 @@ class Ship extends __WEBPACK_IMPORTED_MODULE_0__moving_object__["a" /* default *
     options.color = options.color || randomColor();
     super(options);
   }
+
+  // draw(ctx) {
+    // method of the Canvas 2D API adds an arc to the path which is
+    // centered at (x, y) position with radius r starting at startAngle
+    // and ending at endAngle going in the given direction by anticlockwise
+    // (defaulting to clockwise).
+    // ctx.arc(x, y, radius, startAngle, endAngle, anticlockwise);
+    // ctx.fillStyle = this.color;
+
+    // ctx.beginPath();
+    // ctx.arc(
+    //   this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI, true
+    // );
+    //
+    // ctx.moveTo(75, 50);
+    // ctx.lineTo(100, 75);
+    // ctx.lineTo(100, 25);
+    // ctx.fill();
+  // }
+
 
   fireBullet() {
     const norm = __WEBPACK_IMPORTED_MODULE_2__util__["a" /* default */].norm(this.vel);
@@ -415,9 +439,11 @@ Ship.RADIUS = 8;
     }
   }
 
-  Game.BG_COLOR = "#DFE6FF";
-  Game.DIM_X = 400;
-  Game.DIM_Y = 400;
+
+
+  Game.BG_COLOR = "#F8F9FF";
+  Game.DIM_X = window.innerWidth - 100;
+  Game.DIM_Y = window.innerHeight - 100;
   Game.FPS = 32;
   Game.NUM_ASTEROIDS = 10;
 
@@ -498,7 +524,7 @@ GameView.MOVES = {
 // spacerock which inherits from Moving Objects
 
 const DEFAULTS = {
-  COLOR: '#7B97FF',
+  COLOR: '#466AFB',
   RADIUS: 7,
   SPEED: 1
 };
@@ -541,12 +567,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 // entry file
 document.addEventListener("DOMContentLoaded", function(){
   const canvasEl = document.getElementsByTagName("canvas")[0];
+  const ctx = canvasEl.getContext("2d");
+
   canvasEl.width = __WEBPACK_IMPORTED_MODULE_0__game__["a" /* default */].DIM_X;
   canvasEl.height = __WEBPACK_IMPORTED_MODULE_0__game__["a" /* default */].DIM_Y;
 
-  const ctx = canvasEl.getContext("2d");
-  const game = new __WEBPACK_IMPORTED_MODULE_0__game__["a" /* default */]();
-  new __WEBPACK_IMPORTED_MODULE_1__game_view__["a" /* default */](game, ctx).start();
+  const playOrReset = () => {
+    const game = new __WEBPACK_IMPORTED_MODULE_0__game__["a" /* default */]();
+    new __WEBPACK_IMPORTED_MODULE_1__game_view__["a" /* default */](game, ctx).start();
+  };
+
+  key("enter", playOrReset);
 });
 
 

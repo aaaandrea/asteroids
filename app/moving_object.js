@@ -16,6 +16,10 @@ class MovingObject {
     // default do nothing
   }
 
+  // draw(ctx) {
+  //
+  // }
+
   draw(ctx) {
     // method of the Canvas 2D API adds an arc to the path which is
     // centered at (x, y) position with radius r starting at startAngle

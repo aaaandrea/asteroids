@@ -1,8 +1,40 @@
+.game-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 27px;
+  margin-right: 5px;
+  padding-top: 15px;
+  color: #7B97FF;
+}
+
+.title {
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.desc {
+  align-items: center;
+  justify-content: center;
+  margin: 8px;
+  margin-left: 14px;
+  font-size: 12px;
+}
+
 #canvas {
   /*position: absolute;*/
   justify-content: center;
   align-items: center;
-  margin: 5%;
-  background: #22144C;
-  border: gray 2px solid
+  margin: 1%;
+  background: #7B97FF;
+  border: #466AFB 2px solid
 }

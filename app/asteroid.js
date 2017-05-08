@@ -5,7 +5,7 @@ import Bullet from './bullet';
 // spacerock which inherits from Moving Objects
 
 const DEFAULTS = {
-  COLOR: '#7B97FF',
+  COLOR: '#466AFB',
   RADIUS: 7,
   SPEED: 1
 };
