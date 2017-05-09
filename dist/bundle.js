@@ -244,7 +244,8 @@ class Ship extends __WEBPACK_IMPORTED_MODULE_0__moving_object__["a" /* default *
   constructor(options) {
     options.radius = Ship.RADIUS;
     options.vel = options.vel || [0, 0];
-    options.color = options.color || randomColor();
+    // options.color = options.color || randomColor();
+    options.color = options.color || "#FE8E83";
     // options.theta = 75;
     super(options);
   }

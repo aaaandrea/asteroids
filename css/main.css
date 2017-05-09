@@ -20,6 +20,7 @@
   align-items: center;
   font-size: 24px;
   font-weight: bold;
+  letter-spacing: 1px;
   /*border: 1px solid red;*/
 }
 
@@ -28,6 +29,7 @@
   justify-content: center;
   margin: 3px;
   font-size: 12px;
+  font-weight: bold;
   /*border: 1px solid red;*/
 }
 
@@ -39,6 +41,8 @@
   font-size: 12px;
   font-weight: bold;
   padding: 5px;
+  background: #7B97FF;
+  color: #DFE6FF;
   border: 1px solid #7B97FF;
 }
 
@@ -47,6 +51,6 @@
   justify-content: center;
   align-items: center;
   margin: 1%;
-  background: #7B97FF;
-  border: #466AFB 2px solid
+  background: #C1CFFF;
+  border: #7B97FF 2px solid
 }
