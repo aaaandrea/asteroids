@@ -74,4 +74,6 @@ module.exports = ExampleCode;
 ## Step 4: Util
   * methods
     * dir(vec): normalizes the change in vector based on scale
-    * dist(pos1, pos2)
+    * dist(pos1, pos2): finds the distance between 2 points
+    * norm(vec): figures out the speed of a object on it's vector
+    * randomVec(length): produce a random vector given a length. This will be used for individual asteroids
