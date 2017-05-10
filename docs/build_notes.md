@@ -77,3 +77,5 @@ module.exports = ExampleCode;
     * dist(pos1, pos2): finds the distance between 2 points
     * norm(vec): figures out the speed of a object on it's vector
     * randomVec(length): produce a random vector given a length. This will be used for individual asteroids
+    * scale(vec, m): scale the length of the vector by the given amount or norm. Used in dir.
+    * wrap(coord, max): This allows the canvas to be wrappable, such that none of the objects are out of bounds. 
