@@ -23,7 +23,7 @@ const Util = {
   },
 
    scale (vec, m) {
-     // scale the legth of the vector by the amount m.
+     // scale the length of the vector by the amount m.
      return [vec[0] * m, vec[1] * m];
    },
 

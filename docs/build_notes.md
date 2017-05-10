@@ -67,6 +67,11 @@ module.exports = ExampleCode;
   * methods
     * constructor(options): passed {pos, vel, radius, color, game} through options
     * collideWith: empty and passed another object. Classes which inherit this method will be able to decipher what to do with the otherObject.
-    * isCollideWith(otherObject): compares the center of this object and otherObject, and figures out whether or not they have collided. 
+    * isCollideWith(otherObject): compares the center of this object and otherObject, and figures out whether or not they have collided.
     * draw(ctx): passed a canvas context, and draws on the canvas using beginPath, to fill.
     * move(timeDelta): given the time passed, determines the change of the object in that time, and updates the objects position.
+
+## Step 4: Util
+  * methods
+    * dir(vec): normalizes the change in vector based on scale
+    * dist(pos1, pos2)
