@@ -55,8 +55,8 @@ module.exports = ExampleCode;
 ## Step 2: Add files
   * create `app` folder
   * inside `app` folder:
-    * `util.js`
     * `moving_object.js`
+    * `util.js`
     * `asteroid.js`
     * `bullet.js`
     * `ship.js`
@@ -66,10 +66,10 @@ module.exports = ExampleCode;
 ## Step 3: MovingObject
   * methods
     * constructor(options): passed {pos, vel, radius, color, game} through options
-    * collideWith: empty and passed another object. Classes which inherit this method will be able to decipher what to do with the otherObject.
-    * isCollideWith(otherObject): compares the center of this object and otherObject, and figures out whether or not they have collided.
-    * draw(ctx): passed a canvas context, and draws on the canvas using beginPath, to fill.
-    * move(timeDelta): given the time passed, determines the change of the object in that time, and updates the objects position.
+    * collideWith: empty and passed another object. Classes which inherit this method will be able to decipher what to do with the otherObject
+    * isCollideWith(otherObject): compares the center of this object and otherObject, and figures out whether or not they have collided
+    * draw(ctx): passed a canvas context, and draws on the canvas using beginPath, to fill
+    * move(timeDelta): given the time passed, determines the change of the object in that time, and updates the objects position
 
 ## Step 4: Util
   * methods
@@ -77,5 +77,10 @@ module.exports = ExampleCode;
     * dist(pos1, pos2): finds the distance between 2 points
     * norm(vec): figures out the speed of a object on it's vector
     * randomVec(length): produce a random vector given a length. This will be used for individual asteroids
-    * scale(vec, m): scale the length of the vector by the given amount or norm. Used in dir.
-    * wrap(coord, max): This allows the canvas to be wrappable, such that none of the objects are out of bounds. 
+    * scale(vec, m): scale the length of the vector by the given amount or norm. Used in dir
+    * wrap(coord, max): This allows the canvas to be wrappable, such that none of the objects are out of bounds
+
+## Step 5: Asteroid extends MovingObject
+  * methods
+    * constructor(options): passed color, position, radius, and velocity, as well as anything else inherited from MovingObject
+    * collideWith(otherObject): completes the empty method from MovingObject which will relocate a ship, as it would be destroyed if they collide, OR removes the asteroid from the game if it is hit by a bullet.
