@@ -104,6 +104,19 @@ module.exports = ExampleCode;
 ## Step 7: Game View    
   * methods
     * constructor(): tracks the game, canvas context, and player's ship
-    * bindKeyHandlers():
-    * start():
-    * animate():
+    * bindKeyHandlers(): binds keys for movement to canvas context
+      * use [keymaster library](https://github.com/madrobby/keymaster) in order to set the keys
+    * start(): starts the game
+    * animate(): calculates the timeDelta since the last move, steps each object, and draws each object on the canvas
+
+## Step 8: Asteroids (entry file)    
+  * interacts with DOM retrieving the canvas and the context
+  * starts the game on key press
+  * add canvas element to `index.html`
+    ```
+    <body>
+      <div class="game-container">
+        <canvas id="canvas"></canvas>
+      </div>
+    </body>
+    ```
