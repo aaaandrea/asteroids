@@ -1,3 +1,4 @@
+# Build Notes
 ## Step 1: Webpack
 ### Background
 Without Webpack, we could write multiple files into the head HTML documents such that the browser could execute each one in order like so:
@@ -113,6 +114,7 @@ module.exports = ExampleCode;
   * interacts with DOM retrieving the canvas and the context
   * starts the game on key press
   * add canvas element to `index.html`
+
     ```
     <body>
       <div class="game-container">
@@ -120,3 +122,17 @@ module.exports = ExampleCode;
       </div>
     </body>
     ```
+
+    - At this point the game will be visinle in the browser
+
+## Step 9: Ship extends MovingObject
+  * methods
+    * constructor(options): sets the ships radius, velocity, color, and anything passed through options and set by MovingObject
+    * draw(ctx): draws the ship
+    * fireBullet(): creates a bullet within the game
+    * power(impulse) sets the power of the ship
+    * relocate(): relocates the ship if it collides with an asteroid
+
+## Step 10: Bullet extends MovingObject
+  * methods
+    * constructor(options): sets radius and anything passed down by MovingObject
