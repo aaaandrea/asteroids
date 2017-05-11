@@ -83,4 +83,20 @@ module.exports = ExampleCode;
 ## Step 5: Asteroid extends MovingObject
   * methods
     * constructor(options): passed color, position, radius, and velocity, as well as anything else inherited from MovingObject
-    * collideWith(otherObject): completes the empty method from MovingObject which will relocate a ship, as it would be destroyed if they collide, OR removes the asteroid from the game if it is hit by a bullet.
+    * collideWith(otherObject): completes the empty method from MovingObject which will relocate a ship, as it would be destroyed if they collide, OR removes the asteroid from the game if it is hit by a bullet
+
+## Step 6: Game
+  * methods
+    * constructor(): the game keeps track of the asteroids, bullets, and ships in the game
+    * add(object): adds each object to track in the game
+    * addAsteroids(): adds all asteroids to the game
+    * addShip(): adds the player to the game
+    * allObjects(): iterates through each object in the game and adds them
+    * checkCollisions(): checks Collisions of all objects active in the game
+    * draw(ctx): calls the draw function on each object within the game
+    * isOutOfBounds(pos):checks whether an object is outOfBounds
+    * moveObjects(delta):moves each object given the time difference delta
+    * randomPosition(): renders an object given a randomposition within the canvas
+    * remove(object): removes an object from the game (upon collision)
+    * step(delta): moves each objects and checks their collisions
+    * wrap(pos):
