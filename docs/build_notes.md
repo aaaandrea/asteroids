@@ -99,4 +99,11 @@ module.exports = ExampleCode;
     * randomPosition(): renders an object given a randomposition within the canvas
     * remove(object): removes an object from the game (upon collision)
     * step(delta): moves each objects and checks their collisions
-    * wrap(pos):
+    * wrap(pos): wraps the position if the object's vector is moving past the canvas frame
+
+## Step 7: Game View    
+  * methods
+    * constructor(): tracks the game, canvas context, and player's ship
+    * bindKeyHandlers():
+    * start():
+    * animate():
