@@ -123,7 +123,7 @@ module.exports = ExampleCode;
     </body>
     ```
 
-    - At this point the game will be visinle in the browser
+    - At this point the game will be visible in the browser
 
 ## Step 9: Ship extends MovingObject
   * methods
@@ -136,3 +136,13 @@ module.exports = ExampleCode;
 ## Step 10: Bullet extends MovingObject
   * methods
     * constructor(options): sets radius and anything passed down by MovingObject
+
+
+
+## Future Improvements
+  - [ ] Display Winner when there are no more asteroids
+  - [ ] Allow for game restart
+  - [ ] Improve animations
+    - [ ] Asteroids should look like asteroids
+    - [ ] Rocketship should look like rocketship
+  - [ ] Allow choice for either VIM or Arrow controls
